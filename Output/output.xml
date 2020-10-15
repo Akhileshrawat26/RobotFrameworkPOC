@@ -1,7 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.2.2 (Python 3.8.6 on win32)" generated="20201009 17:47:43.998" rpa="false">
-<suite id="s1" name="TestSuite" source="C:\Users\akhrawat\PycharmProjects\RobotFrameworkPOC\Test\TestSuite.robot">
-<test id="s1-t1" name="Open_Application">
+<robot generator="Robot 3.2.2 (Python 3.8.6 on win32)" generated="20201015 19:49:50.002" rpa="false">
+<suite id="s1" name="TestSuite" source="C:\Users\akhrawat\PycharmProjects\RobotFrameworkQA\Test\TestSuite.robot">
+<test id="s1-t1" name="Validating API and UI for Reqrez application">
+<kw name="Create API session">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>APISession</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20201015 19:49:51.700" level="INFO">Creating Session using : alias=APISession, url=https://reqres.in, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201015 19:49:51.699" endtime="20201015 19:49:51.700"></status>
+</kw>
+<status status="PASS" starttime="20201015 19:49:51.698" endtime="20201015 19:49:51.701"></status>
+</kw>
+<kw name="Check Site is up and GET request is successful">
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>APISession</arg>
+<arg>${key}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201015 19:49:52.549" level="INFO">GET Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20201015 19:49:52.550" level="INFO">GET Response : url=https://reqres.in/api/users 
+ status=200, reason=OK 
+ body={"page":1,"per_page":6,"total":12,"total_pages":2,"data":[{"id":1,"email":"george.bluth@reqres.in","first_name":"George","last_name":"Bluth","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"},{"id":2,"email":"janet.weaver@reqres.in","first_name":"Janet","last_name":"Weaver","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/josephstein/128.jpg"},{"id":3,"email":"emma.wong@reqres.in","first_name":"Emma","last_name":"Wong","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/olegpogodaev/128.jpg"},{"id":4,"email":"eve.holt@reqres.in","first_name":"Eve","last_name":"Holt","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/marcoramires/128.jpg"},{"id":5,"email":"charles.morris@reqres.in","first_name":"Charles","last_name":"Morris","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/stephenmoon/128.jpg"},{"id":6,"email":"tracey.ramos@reqres.in","first_name":"Tracey","last_name":"Ramos","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/bigmancho/128.jpg"}],"ad":{"company":"StatusCode Weekly","url":"http://statuscode.org/","text":"A weekly newsletter focusing on software development, infrastructure, the server, performance, and the stack end of things."}} 
+ </msg>
+<msg timestamp="20201015 19:49:52.550" level="INFO">c:\users\akhrawat\appdata\local\programs\python\python38\lib\site-packages\urllib3\connectionpool.py:981: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20201015 19:49:52.556" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201015 19:49:51.703" endtime="20201015 19:49:52.556"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20201015 19:49:52.559" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201015 19:49:52.557" endtime="20201015 19:49:52.559"></status>
+</kw>
+<status status="PASS" starttime="20201015 19:49:51.702" endtime="20201015 19:49:52.561"></status>
+</kw>
+<kw name="Check POST request is successful">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=morpheus</arg>
+<arg>job=leader</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20201015 19:49:52.566" level="INFO">${body} = {'name': 'morpheus', 'job': 'leader'}</msg>
+<status status="PASS" starttime="20201015 19:49:52.564" endtime="20201015 19:49:52.566"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20201015 19:49:52.568" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20201015 19:49:52.567" endtime="20201015 19:49:52.568"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>APISession</arg>
+<arg>${key}</arg>
+<arg>data=${body}</arg>
+<arg>headers=${header}</arg>
+</arguments>
+<assign>
+<var>${responses}</var>
+</assign>
+<msg timestamp="20201015 19:49:52.791" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Cookie': '__cfduid=dddaaf9d72e186358153d9b55fbceffd31602771588', 'Content-Length': '37'} 
+ body={"name": "morpheus", "job": "leader"} 
+ </msg>
+<msg timestamp="20201015 19:49:52.791" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ body={"name":"morpheus","job":"leader","id":"628","createdAt":"2020-10-15T14:19:48.319Z"} 
+ </msg>
+<msg timestamp="20201015 19:49:52.791" level="INFO">c:\users\akhrawat\appdata\local\programs\python\python38\lib\site-packages\urllib3\connectionpool.py:981: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20201015 19:49:52.791" level="INFO">${responses} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20201015 19:49:52.568" endtime="20201015 19:49:52.791"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${responses.status_code}</arg>
+<arg>201</arg>
+</arguments>
+<msg timestamp="20201015 19:49:52.792" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201015 19:49:52.791" endtime="20201015 19:49:52.792"></status>
+</kw>
+<status status="PASS" starttime="20201015 19:49:52.562" endtime="20201015 19:49:52.792"></status>
+</kw>
+<kw name="User launches Emulator and Opens application">
 <kw name="Open Application" library="AppiumLibrary">
 <doc>Opens a new application to given Appium server.
 Capabilities of appium server, Android and iOS,
@@ -13,15 +127,72 @@ Please check https://github.com/appium/appium/blob/master/docs/en/writing-runnin
 <arg>http://localhost:4723/wd/hub</arg>
 <arg>platformName=Android</arg>
 <arg>deviceName=emulator-5554</arg>
-<arg>appPackage=chat21.android.demo</arg>
-<arg>appActivity=chat21.android.demo.SplashActivity</arg>
+<arg>appPackage=com.lubulwa.reqrez</arg>
+<arg>appActivity=com.lubulwa.reqrez.ui.component.splash.SplashActivity</arg>
 <arg>automationName=Uiautomator2</arg>
 </arguments>
-<status status="PASS" starttime="20201009 17:47:45.059" endtime="20201009 17:48:10.862"></status>
+<status status="PASS" starttime="20201015 19:49:52.794" endtime="20201015 19:50:10.524"></status>
 </kw>
-<status status="PASS" starttime="20201009 17:47:45.059" endtime="20201009 17:48:10.863" critical="yes"></status>
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<arguments>
+<arg>${pageRefresh}</arg>
+<arg>timeout=10</arg>
+</arguments>
+<status status="PASS" starttime="20201015 19:50:10.525" endtime="20201015 19:50:12.976"></status>
+</kw>
+<status status="PASS" starttime="20201015 19:49:52.794" endtime="20201015 19:50:12.977"></status>
+</kw>
+<kw name="User creates a new Job Profile">
+<kw name="Click Element" library="AppiumLibrary">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>${addUserJobProfile}</arg>
+</arguments>
+<msg timestamp="20201015 19:50:12.986" level="INFO">Clicking element 'fab'.</msg>
+<status status="PASS" starttime="20201015 19:50:12.981" endtime="20201015 19:50:13.628"></status>
+</kw>
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<arguments>
+<arg>${userName}</arg>
+<arg>timeout=10</arg>
+</arguments>
+<status status="PASS" starttime="20201015 19:50:13.628" endtime="20201015 19:50:16.157"></status>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${userName}</arg>
+<arg>Mike</arg>
+</arguments>
+<msg timestamp="20201015 19:50:16.160" level="INFO">Typing text 'Mike' into text field 'et_username_create'</msg>
+<status status="PASS" starttime="20201015 19:50:16.157" endtime="20201015 19:50:17.031"></status>
+</kw>
+<kw name="Input Text" library="AppiumLibrary">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${jobProfile}</arg>
+<arg>Kroger</arg>
+</arguments>
+<msg timestamp="20201015 19:50:17.033" level="INFO">Typing text 'Kroger' into text field 'et_job_create'</msg>
+<status status="PASS" starttime="20201015 19:50:17.031" endtime="20201015 19:50:18.327"></status>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>${createUserButton}</arg>
+</arguments>
+<msg timestamp="20201015 19:50:18.330" level="INFO">Clicking element 'btn_create_user'.</msg>
+<status status="PASS" starttime="20201015 19:50:18.328" endtime="20201015 19:50:19.013"></status>
+</kw>
+<status status="PASS" starttime="20201015 19:50:12.979" endtime="20201015 19:50:19.014"></status>
+</kw>
+<doc>Maintaining employee profile based on their job</doc>
+<status status="PASS" starttime="20201015 19:49:51.696" endtime="20201015 19:50:19.016" critical="yes"></status>
 </test>
-<status status="PASS" starttime="20201009 17:47:44.011" endtime="20201009 17:48:10.864"></status>
+<doc>Its a POC suite for Robot framework where we are implementing services and UI testcases</doc>
+<status status="PASS" starttime="20201015 19:49:50.016" endtime="20201015 19:50:19.022"></status>
 </suite>
 <statistics>
 <total>
