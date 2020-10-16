@@ -3,19 +3,21 @@ Documentation  Its a POC suite for Robot framework where we are implementing ser
 Resource  ../Resources/ObjectRepository.robot
 Library  AppiumLibrary
 Library  RequestsLibrary
+Library  JSONLibrary
 *** Variables ***
 ${base_URL}   https://reqres.in
 ${key}   /api/users
 *** Test Cases ***
 Validating API and UI for Reqrez application
     [Documentation]  Maintaining employee profile based on their job
+    [Tags]  Smoke
     Create API session
     Check Site is up and GET request is successful
     Check POST request is successful
     User launches Emulator and Opens application
-#    Check a failed response
     User creates a new Job Profile
-
+    Open a new APK
+    #    Check a failed response
 
 *** Keywords ***
 Create API session
@@ -26,9 +28,9 @@ Check Site is up and GET request is successful
     should be equal as strings  ${response.status_code}  200
 
 Check POST request is successful
-    ${body}=  create dictionary  name=morpheus  job=leader
+    ${bodyJSON}=  Load JSON From File  C:/Users/akhrawat/PycharmProjects/RobotFrameworkQA/Data/body.json
     ${header}=  create dictionary    Content-Type=application/json
-    ${responses}=  post request  APISession  ${key}  data=${body}  headers=${header}
+    ${responses}=  post request  APISession  ${key}  data=${bodyJSON}  headers=${header}
     should be equal as strings  ${responses.status_code}  201
 
 User launches Emulator and Opens application
@@ -45,3 +47,6 @@ User creates a new Job Profile
     Input Text  ${userName}  Mike
     Input Text  ${jobProfile}  Kroger
     Click Element  ${createUserButton}
+
+Open a new APK
+    OPEN APPLICATION  http://localhost:4723/wd/hub  platformName=Android  deviceName=emulator-5554   appPackage=com.example.androidapp  appActivity=ui.login.LoginActivity  automationName=Uiautomator2
